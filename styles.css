@@ -791,3 +791,25 @@ footer .small {
     margin: 0 auto 20px auto;
     transition: all 0.3s ease;
 }
+
+.modal {
+    backdrop-filter: blur(5px);
+}
+
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+
+.modal {
+    z-index: 1050 !important;
+}
+
+#passwordModal, #adminLoginModal {
+    z-index: 1060 !important;
+}
+
+/* Pastikan modal visible */
+.modal.show {
+    display: block !important;
+    background-color: rgba(0, 0, 0, 0.5);
+}
