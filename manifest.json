@@ -1,80 +1,60 @@
 {
   "name": "Sobat Farmasi Adhyatma",
   "short_name": "FarmasiAdhyatma",
-  "description": "Pusat Akses Web Sobat Farmasi Adhyatma untuk Staff dan Pengunjung",
+  "description": "Aplikasi PWA Sobat Farmasi Adhyatma - Pusat Akses Web untuk Staff dan Pengunjung",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#3498db",
+  "background_color": "#ffffff",
   "theme_color": "#3498db",
   "orientation": "portrait",
   "scope": "/",
-  "categories": ["medical", "health", "productivity"],
   "lang": "id",
-  "dir": "ltr",
+  "categories": ["health", "productivity", "education"],
   "icons": [
+    {
+      "src": "assets/icons/android-icon-36x36.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/android-icon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
     {
       "src": "assets/icons/android-icon-72x72.png",
       "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "assets/icons/android-icon-96x96.png",
       "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/apple-icon-120x120.png",
-      "sizes": "120x120",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "assets/icons/android-icon-144x144.png",
       "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/apple-icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "assets/icons/android-icon-192x192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "type": "image/png"
     },
     {
-      "src": "assets/icons/ms-icon-310x310.png",
-      "sizes": "310x310",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "assets/icons/apple-icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
     },
     {
-      "src": "assets/icons/ms-icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "src": "assets/icons/apple-icon-167x167.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icons/apple-icon-180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
     }
-  ],
-  "screenshots": [
-    {
-      "src": "assets/screenshots/screenshot-mobile.png",
-      "sizes": "375x667",
-      "type": "image/png",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "assets/screenshots/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
-  ],
-  "related_applications": [],
-  "prefer_related_applications": false
+  ]
 }

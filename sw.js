@@ -1,10 +1,12 @@
-const CACHE_NAME = 'farmasi-adhyatma-v1.2.0';
+const CACHE_NAME = 'farmasi-adhyatma-v1.3.0';
 const APP_SHELL = [
   '/',
   '/index.html',
   '/styles.css',
   '/script.js', 
   '/manifest.json',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
+  'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
 ];
 
