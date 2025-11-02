@@ -15,14 +15,14 @@ if ('serviceWorker' in navigator) {
 const CONFIG = {
     internalPassword: "12345",
     adminPassword: "admin123",
-    version: "1.3.0"
+    version: "1.3.3"
 };
 
 // Global State
 let appState = {
     isAdmin: false,
     editMode: false,
-    currentSection: null,
+    currentSection: 'external', // Default langsung ke external
     isInternalLoggedIn: false
 };
 
@@ -77,34 +77,27 @@ function initializeApp() {
     loadCustomLinks('external');
     loadCustomLinks('internal');
 
+    // Show external content by default (tanpa tombol)
+    showSection('external');
+
     console.log('✅ App initialized successfully');
 }
 
 function setupEventListeners() {
     console.log('🔧 Setting up event listeners...');
     
-    // Main navigation buttons
-    const externalBtn = document.getElementById('externalBtn');
-    const internalBtn = document.getElementById('internalBtn');
+    // Tombol Internal di header
+    const internalAccessBtn = document.getElementById('internalAccessBtn');
     const adminAccessBtn = document.getElementById('adminAccessBtn');
     const adminBtn = document.getElementById('adminBtn');
 
-    if (externalBtn) {
-        externalBtn.addEventListener('click', () => {
-            console.log('📤 External button clicked');
-            showSection('external');
-        });
-    } else {
-        console.error('❌ External button not found');
-    }
-
-    if (internalBtn) {
-        internalBtn.addEventListener('click', () => {
-            console.log('🔐 Internal button clicked');
+    if (internalAccessBtn) {
+        internalAccessBtn.addEventListener('click', () => {
+            console.log('🔐 Internal access button clicked');
             showPasswordModal();
         });
     } else {
-        console.error('❌ Internal button not found');
+        console.error('❌ Internal access button not found');
     }
 
     if (adminAccessBtn) {
@@ -133,6 +126,18 @@ function setupEventListeners() {
         adminPasswordSubmit.addEventListener('click', () => checkAdminPassword());
     }
 
+    const logoutAdminBtn = document.getElementById('logoutAdminBtn');
+        if (logoutAdminBtn) {
+        logoutAdminBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('🚪 Logout admin button clicked!');
+            logoutAdmin();
+        });
+            console.log('✅ Logout admin event listener attached');
+        } else {
+            console.log('⚠️ Logout admin button not found during setup');
+        }
+
     // Enter key support
     const passwordInput = document.getElementById('passwordInput');
     const adminPasswordInput = document.getElementById('adminPasswordInput');
@@ -149,20 +154,15 @@ function setupEventListeners() {
         });
     }
 
-    // Back buttons
-    const backFromExternal = document.getElementById('backFromExternal');
+    // Back buttons (untuk internal content)
     const backFromInternal = document.getElementById('backFromInternal');
-
-    if (backFromExternal) {
-        backFromExternal.addEventListener('click', () => {
-            hideSection('external');
-        });
-    }
 
     if (backFromInternal) {
         backFromInternal.addEventListener('click', () => {
             hideSection('internal');
             appState.isInternalLoggedIn = false;
+            // Kembali ke external content
+            showSection('external');
         });
     }
 
@@ -192,7 +192,44 @@ function setupEventListeners() {
     // Search functionality
     setupSearchFunctionality();
 
+    // Header search functionality
+    setupHeaderSearch();
+
     console.log('✅ Event listeners setup complete');
+}
+
+// Function untuk logout admin
+function logoutAdmin() {
+    appState.isAdmin = false;
+    
+    // Sembunyikan tombol logout admin
+    const logoutAdminBtn = document.getElementById('logoutAdminBtn');
+    const adminStatus = document.getElementById('adminStatus');
+    const adminBtn = document.getElementById('adminBtn');
+    
+    if (logoutAdminBtn) logoutAdminBtn.style.display = 'none';
+    if (adminStatus) adminStatus.style.display = 'none';
+    if (adminBtn) adminBtn.style.display = 'none';
+    
+    // Update admin controls
+    updateAdminControls();
+    
+    showNotification('👋 Berhasil keluar dari mode admin', 'success');
+    console.log('✅ Logged out from admin mode');
+}
+
+function setupHeaderSearch() {
+    const searchHeader = document.getElementById('searchHeader');
+    if (searchHeader) {
+        searchHeader.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            if (appState.currentSection === 'external') {
+                filterLinks('external', query);
+            } else if (appState.currentSection === 'internal') {
+                filterLinks('internal', query);
+            }
+        });
+    }
 }
 
 function showPasswordModal() {
@@ -334,6 +371,9 @@ function checkAdminPassword() {
         adminPasswordInput.value = '';
         adminPasswordError.style.display = 'none';
         appState.isAdmin = true;
+
+        const logoutAdminBtn = document.getElementById('logoutAdminBtn');
+        if (logoutAdminBtn) logoutAdminBtn.style.display = 'flex';
         updateAdminControls();
         showNotification('⚙️ Admin mode diaktifkan', 'success');
     } else {
@@ -346,14 +386,13 @@ function checkAdminPassword() {
 
 // Section management
 function showSection(section) {
-    const accessOptions = document.querySelector('.access-options');
     const externalContent = document.getElementById('externalContent');
     const internalContent = document.getElementById('internalContent');
     const userStatus = document.getElementById('userStatus');
     
-    if (!accessOptions) return;
-    
-    accessOptions.style.display = 'none';
+    // Hide all sections first
+    if (externalContent) externalContent.classList.remove('active');
+    if (internalContent) internalContent.classList.remove('active');
     
     if (section === 'external' && externalContent) {
         externalContent.classList.add('active');
@@ -368,16 +407,19 @@ function showSection(section) {
     }
     
     updateAdminControls();
+    
+    // Clear header search when switching sections
+    const searchHeader = document.getElementById('searchHeader');
+    if (searchHeader) {
+        searchHeader.value = '';
+    }
 }
 
 function hideSection(section) {
-    const accessOptions = document.querySelector('.access-options');
     const externalContent = document.getElementById('externalContent');
     const internalContent = document.getElementById('internalContent');
     const userStatus = document.getElementById('userStatus');
     const loginNotice = document.getElementById('loginNotice');
-    
-    if (!accessOptions) return;
     
     if (section === 'external' && externalContent) {
         externalContent.classList.remove('active');
@@ -387,11 +429,10 @@ function hideSection(section) {
         if (loginNotice) loginNotice.style.display = 'none';
     }
     
-    accessOptions.style.display = 'flex';
     appState.currentSection = null;
     updateAdminControls();
     
-    console.log('🔙 Returned to main menu');
+    console.log('🔙 Section hidden:', section);
 }
 
 // Admin functionality
