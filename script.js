@@ -1,14 +1,24 @@
 // PWA Registration
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js')
-            .then(function(registration) {
-                console.log('✅ Service Worker registered with scope:', registration.scope);
-            })
-            .catch(function(error) {
-                console.log('❌ Service Worker registration failed:', error);
-            });
-    });
+  window.addEventListener('load', function() {
+    const swPath = '/sobatfarmasiadhyatma/sw.js';
+    
+    navigator.serviceWorker.register(swPath)
+      .then(function(registration) {
+        console.log('✅ Service Worker registered:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('❌ Service Worker failed:', error);
+        // Fallback: coba relative path
+        navigator.serviceWorker.register('./sw.js')
+          .then(function(registration) {
+            console.log('✅ Service Worker registered with relative path');
+          })
+          .catch(function(error2) {
+            console.log('❌ Service Worker completely failed');
+          });
+      });
+  });
 }
 
 // App Configuration

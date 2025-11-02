@@ -1,10 +1,12 @@
-const CACHE_NAME = 'farmasi-adhyatma-v1.3.0';
+const CACHE_NAME = 'farmasi-adhyatma-v1.3.3';
+const BASE_PATH = '/sobatfarmasiadhyatma';
+
 const APP_SHELL = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/script.js', 
-  '/manifest.json',
+  `${BASE_PATH}/`,
+  `${BASE_PATH}/index.html`,
+  `${BASE_PATH}/styles.css`,
+  `${BASE_PATH}/script.js`, 
+  `${BASE_PATH}/manifest.json`,
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
   'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
@@ -54,6 +56,19 @@ self.addEventListener('activate', (event) => {
 // Fetch Event
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+
+   if (event.request.mode === 'navigate') {
+    event.respondWith(
+      caches.match(`${BASE_PATH}/index.html`)
+        .then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          return fetch(event.request);
+        })
+    );
+    return;
+  }
 
   event.respondWith(
     caches.open(CACHE_NAME).then((cache) => {

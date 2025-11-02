@@ -2,12 +2,12 @@
   "name": "Sobat Farmasi Adhyatma",
   "short_name": "FarmasiAdhyatma",
   "description": "Aplikasi PWA Sobat Farmasi Adhyatma - Pusat Akses Web untuk Staff dan Pengunjung",
-  "start_url": "/",
+  "start_url": "/sobatfarmasiadhyatma/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3498db",
   "orientation": "portrait",
-  "scope": "/",
+  "scope": "/sobatfarmasiadhyatma/",
   "lang": "id",
   "categories": ["health", "productivity", "education"],
   "icons": [
@@ -48,7 +48,7 @@
     },
     {
       "src": "assets/icons/apple-icon-144x144.png",
-      "sizes": "167x167",
+      "sizes": "144x144",
       "type": "image/png"
     },
     {
