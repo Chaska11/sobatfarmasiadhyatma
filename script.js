@@ -3,7 +3,7 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     const swPath = '/sobatfarmasiadhyatma/sw.js';
     
-    navigator.serviceWorker.register(swPath)
+    navigator.serviceWorker.register('./sw.js')
       .then(function(registration) {
         console.log('✅ Service Worker registered:', registration.scope);
       })
