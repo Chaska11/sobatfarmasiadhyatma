@@ -1,6 +1,6 @@
 :root {
-    --primary: #5085a8;
-    --secondary: #2ecc71;
+    --primary: #667eea;
+    --secondary: #a086bc;
     --dark: #2c3e50;
     --light: #f8f9fa;
     --danger: #e74c3c;
@@ -73,28 +73,28 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     flex-wrap: wrap;
     gap: 20px;
 }
 
 .logo-title {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    align-items: top;
+    gap: 50px;
     flex: 1;
 }
 
 .logo {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     background: white;
-    border-radius: 12px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    padding: 8px;
+    padding: 1px;
     flex-shrink: 0;
     overflow: hidden;
 }
@@ -234,9 +234,9 @@ body {
 
 /* Hospital Info */
 .hospital-info {
-    text-align: center;
+    text-align: left;
     font-size: 1rem;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     opacity: 0.9;
     font-weight: 300;
     line-height: 1.4;
@@ -247,11 +247,11 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 25px;
+    gap: 50px;
     flex-wrap: wrap;
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(232, 242, 246, 0.622);
 }
 
 .social-link {
